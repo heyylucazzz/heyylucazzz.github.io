@@ -3,98 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Tree Repository View</title>
+    <title>My Bio</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #000;
+            color: #fff;
             margin: 0;
             padding: 0;
         }
-        .file-tree {
-            list-style-type: none;
-            padding-left: 20px;
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
         }
-        .file-tree ul {
-            list-style-type: none;
-            padding-left: 20px;
+        main {
+            padding: 2rem;
         }
-        .file-tree li {
-            margin: 5px 0;
-        }
-        .folder {
-            cursor: pointer;
-        }
-        .folder::before {
-            content: "📁 ";
-        }
-        .file::before {
-            content: "📄 ";
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>File Tree Repository View</h1>
+        <h1>bem vindo ao meu deploy de teste</h1>
     </header>
     <main>
-        <ul class="file-tree" id="fileTree"></ul>
+        <p>olá! como vai você?</p>
+        <p>já se hidratou corretamente hoje?</p>
+        <p>tire um tempo para tomar um ar puro</p>
+        <p>saía um pouco de casa</p>
+        <p>tome um pouco de sol</p>
+        <p>coma alguma fruta</p>
+        <p>o que traz sua presença aqui hoje em meu site de teste?</p>
+        <p>isto é apenas um dos meus milhares de testes</p>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const fileTreeData = {
-                "Folder 1": {
-                    "File 1.1": null,
-                    "File 1.2": null
-                },
-                "Folder 2": {
-                    "Subfolder 2.1": {
-                        "File 2.1.1": null
-                    },
-                    "File 2.2": null
-                },
-                "File 3": null
-            };
-
-            function createFileTree(data, parent) {
-                const ul = document.createElement('ul');
-
-                for (const key in data) {
-                    if (data.hasOwnProperty(key)) {
-                        const li = document.createElement('li');
-                        li.textContent = key;
-
-                        if (data[key] === null) {
-                            li.className = 'file';
-                        } else {
-                            li.className = 'folder';
-                            li.addEventListener('click', function() {
-                                const nested = this.nextElementSibling;
-                                if (nested.style.display === 'block') {
-                                    nested.style.display = 'none';
-                                } else {
-                                    nested.style.display = 'block';
-                                }
-                            });
-
-                            const nestedUl = createFileTree(data[key], li);
-                            li.appendChild(nestedUl);
-                            nestedUl.style.display = 'none';
-                        }
-
-                        ul.appendChild(li);
-                    }
-                }
-
-                return ul;
-            }
-
-            const fileTreeContainer = document.getElementById('fileTree');
-            const fileTree = createFileTree(fileTreeData, fileTreeContainer);
-            fileTreeContainer.appendChild(fileTree);
-        });
-    </script>
+    <footer>
+        <p>&copy; 2024 ~ heyylucazzz.workers.dev </p>
+    </footer>
 </body>
 </html>
 
