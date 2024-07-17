@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bomba 2024 Atualizado Tutorial for Polegar and Brenda</title>
+    <title>File Tree View</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,39 +12,75 @@
             margin: 0;
             padding: 0;
         }
-        header {
-            background-color: #00000;
-            color: #333;
-            padding: 1rem 0;
-            padding: 0;
-            text-align: center;
+        .file-tree {
+            list-style-type: none;
+            padding-left: 20px;
         }
-        main {
-            padding: 2rem;
+        .file-tree ul {
+            list-style-type: none;
+            padding-left: 20px;
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        .file-tree li {
+            margin: 5px 0;
+        }
+        .folder {
+            cursor: pointer;
+        }
+        .folder::before {
+            content: "📁 ";
+        }
+        .file::before {
+            content: "📄 ";
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>bem vindo a minha página gitbomba</h1>
+        <h1>File Tree View</h1>
     </header>
     <main>
-        <p>brenda tem que por o polegar pra aprender a fazer também</p>
-        <p>faz o L</p>
-        <p> e vsfd crepon</p>
+        <ul class="file-tree" id="fileTree">
+            <li class="folder">Folder 1
+                <ul>
+                    <li class="file">File 1.1</li>
+                    <li class="file">File 1.2</li>
+                </ul>
+            </li>
+            <li class="folder">Folder 2
+                <ul>
+                    <li class="folder">Subfolder 2.1
+                        <ul>
+                            <li class="file">File 2.1.1</li>
+                        </ul>
+                    </li>
+                    <li class="file">File 2.2</li>
+                </ul>
+            </li>
+            <li class="file">File 3</li>
+        </ul>
     </main>
-    <footer>
-        <p>&copy; 2024 ~ workers.heyyłucazzz</p>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const folders = document.querySelectorAll('.folder');
+
+            folders.forEach(folder => {
+                folder.addEventListener('click', function() {
+                    const nested = this.nextElementSibling;
+                    if (nested.style.display === 'block') {
+                        nested.style.display = 'none';
+                    } else {
+                        nested.style.display = 'block';
+                    }
+                });
+            });
+
+            // Initially hide all nested lists
+            const nestedLists = document.querySelectorAll('.file-tree ul');
+            nestedLists.forEach(list => {
+                list.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
 
