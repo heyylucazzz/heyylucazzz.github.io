@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Tree View</title>
+    <title>File Tree Repository View</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,49 +36,63 @@
 </head>
 <body>
     <header>
-        <h1>File Tree View</h1>
+        <h1>File Tree Repository View</h1>
     </header>
     <main>
-        <ul class="file-tree" id="fileTree">
-            <li class="folder">Folder 1
-                <ul>
-                    <li class="file">File 1.1</li>
-                    <li class="file">File 1.2</li>
-                </ul>
-            </li>
-            <li class="folder">Folder 2
-                <ul>
-                    <li class="folder">Subfolder 2.1
-                        <ul>
-                            <li class="file">File 2.1.1</li>
-                        </ul>
-                    </li>
-                    <li class="file">File 2.2</li>
-                </ul>
-            </li>
-            <li class="file">File 3</li>
-        </ul>
+        <ul class="file-tree" id="fileTree"></ul>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const folders = document.querySelectorAll('.folder');
+            const fileTreeData = {
+                "Folder 1": {
+                    "File 1.1": null,
+                    "File 1.2": null
+                },
+                "Folder 2": {
+                    "Subfolder 2.1": {
+                        "File 2.1.1": null
+                    },
+                    "File 2.2": null
+                },
+                "File 3": null
+            };
 
-            folders.forEach(folder => {
-                folder.addEventListener('click', function() {
-                    const nested = this.nextElementSibling;
-                    if (nested.style.display === 'block') {
-                        nested.style.display = 'none';
-                    } else {
-                        nested.style.display = 'block';
+            function createFileTree(data, parent) {
+                const ul = document.createElement('ul');
+
+                for (const key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        const li = document.createElement('li');
+                        li.textContent = key;
+
+                        if (data[key] === null) {
+                            li.className = 'file';
+                        } else {
+                            li.className = 'folder';
+                            li.addEventListener('click', function() {
+                                const nested = this.nextElementSibling;
+                                if (nested.style.display === 'block') {
+                                    nested.style.display = 'none';
+                                } else {
+                                    nested.style.display = 'block';
+                                }
+                            });
+
+                            const nestedUl = createFileTree(data[key], li);
+                            li.appendChild(nestedUl);
+                            nestedUl.style.display = 'none';
+                        }
+
+                        ul.appendChild(li);
                     }
-                });
-            });
+                }
 
-            // Initially hide all nested lists
-            const nestedLists = document.querySelectorAll('.file-tree ul');
-            nestedLists.forEach(list => {
-                list.style.display = 'none';
-            });
+                return ul;
+            }
+
+            const fileTreeContainer = document.getElementById('fileTree');
+            const fileTree = createFileTree(fileTreeData, fileTreeContainer);
+            fileTreeContainer.appendChild(fileTree);
         });
     </script>
 </body>
